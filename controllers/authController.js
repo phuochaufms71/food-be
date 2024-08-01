@@ -52,7 +52,7 @@ export const login = async (req, res) => {
         return
     }
 
-    const checkEmailUser = await User.findOne({email, phone});
+    const checkEmailUser = await User.findOne({email});
     if (!checkEmailUser) {
         handleResponseError(res, 400, "Email is incorrect")
         return

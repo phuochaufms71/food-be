@@ -22,8 +22,8 @@ const comparePassword = async (password, hashedPassword) => {
 
 //register
 export const register = async (req, res) => {
-    const { email, password } = req.body;
-    if (!email || !password) {
+    const { firstName, lastName, phone, email, password } = req.body;
+    if (!firstName || !lastName || !phone || !email || !password) {
         handleResponseError(res, 400, "Bab request. All fields are required")
         return
     }
@@ -34,8 +34,11 @@ export const register = async (req, res) => {
         return
     }
 
-    const newUser = await User.create({ email, password: await hashPassword(password) });
+    const newUser = await User.create({ firstName, lastName, phone, email, password: await hashPassword(password) });
     handleResponseSuccess(res, 201, "Register successfully", {
+        firstName,
+        lastName,
+        phone,
         email,
         role: newUser.role
     })

@@ -14,7 +14,7 @@ const blogSchema = mongoose.Schema({
         require: true
     },
     date: {
-        type: Date,
+        type: String,
         require: true
     },
     content: {
@@ -23,6 +23,6 @@ const blogSchema = mongoose.Schema({
     }
 });
 
-const Blog = mongoose.model("models", blogSchema);
+const Blog = mongoose.model("blogs", blogSchema);
 
 export default Blog;

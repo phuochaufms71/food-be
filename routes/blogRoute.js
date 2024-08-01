@@ -1,0 +1,14 @@
+import express from 'express';
+import { auth } from "../middleware/auth.js";
+import { authAdmin } from "../middleware/authAdmin.js";
+import { createBlog, deleteBlog, getBlogDetail, getBlogs, updateBlog } from '../controllers/blogController.js';
+
+const router = express.Router();
+
+router.get('/', auth, getBlogs);
+router.get('/:id', auth, getBlogDetail);
+router.post('/', auth, authAdmin, createBlog);
+router.put('/:id', auth, authAdmin, updateBlog);
+router.delete('/:id', auth, authAdmin, deleteBlog);
+
+export {router as blogRoute};

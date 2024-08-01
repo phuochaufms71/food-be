@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { handleResponseError, handleResponseSuccess } from "../utils/responses.js";
 import Food from "../models/foodModel.js";
 
-export const getFoods = async( req, res) => {
+export const getFoods = async(req, res) => {
     try {
         const foods = await Food.find()
         handleResponseSuccess(res, 200, "Get foods successfully", { foods })

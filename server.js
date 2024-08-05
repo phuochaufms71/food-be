@@ -16,6 +16,15 @@ connectCloudinary()
 app.use('/api/auth', authRoute)
 app.use('/api/foods', foodRoute)
 app.use('/api/blogs', blogRoute)
+app.use((req, res, next) => {
+    res.header(
+        "Access-Control-Allow-Origin",
+        "React app URL"
+    );
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.header("Access-Control-Allow-Headers", "Content-Type");
+    next();
+});
 
 mongoose.connect(process.env.DB_URI, {dbName: 'db_food'})
     .then(() => {

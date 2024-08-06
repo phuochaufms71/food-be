@@ -35,7 +35,7 @@ export const getFoodDetail = async( req, res) => {
 }
 
 export const createFood = async (req, res) => {
-    const imageFile = req.files.image[0];
+    const imageFile = req.file;
     const imageUpload = await cloudinary.uploader.upload(imageFile.path, {resource_type: 'image'})
     const { category, name, description, price, rate } = req.body;
     if (!category || !name || !description || !price || !rate) {

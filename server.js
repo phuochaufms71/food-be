@@ -10,10 +10,11 @@ import connectCloudinary from './config/index.js';
 const app = express();
 app.use(express.json());
 
-const corsOptions = {
-    origin: /\.onrender\.com$/,
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE"
-};
+const corsOptions ={
+    origin:'https://food-be-1.onrender.com/', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200
+}
 
 app.use(cors(corsOptions));
 app.use(function (request, response, next) {

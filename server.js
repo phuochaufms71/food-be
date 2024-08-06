@@ -17,12 +17,16 @@ app.use('/api/auth', authRoute)
 app.use('/api/foods', foodRoute)
 app.use('/api/blogs', blogRoute)
 
-app.use(function (req, res) {
-    res.setHeader("Access-Control-Allow-Origin", "*")
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader("Access-Control-Max-Age", "1800");
-    res.setHeader("Access-Control-Allow-Headers", "content-type");
-});
+app.use(cors({
+    origin: 'https://food-fe-xod3.onrender.com',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  }));
+  
+
+// app.use('/api/foods/admin-food/create', (req, res) => {
+//     // Your route handler code
+// });
 mongoose.connect(process.env.DB_URI, {dbName: 'db_food'})
     .then(() => {
         app.listen(process.env.PORT, () => {

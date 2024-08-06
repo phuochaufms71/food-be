@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { v2 as cloudinary } from "cloudinary";
 import { handleResponseError, handleResponseSuccess } from "../utils/responses.js";
 import Food from "../models/foodModel.js";
 
@@ -35,10 +34,7 @@ export const getFoodDetail = async( req, res) => {
 }
 
 export const createFood = async (req, res) => {
-    const imageFile = req.file;
-    const imageUpload = await cloudinary.uploader.upload(imageFile.path, {resource_type: 'image'})
-    const image = imageUpload.secure_url;
-    const { category, name, description, price, rate } = req.body;
+    const { category, name, image, description, price, rate } = req.body;
     if (!category || !name || !image || !description || !price || !rate) {
         handleResponseError(res, 400, "All fields are required")
         return

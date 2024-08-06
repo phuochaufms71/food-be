@@ -5,20 +5,18 @@ import mongoose from 'mongoose';
 import { authRoute } from './routes/authRoute.js';
 import { foodRoute } from './routes/foodRoute.js';
 import { blogRoute } from './routes/blogRoute.js';
-import connectCloudinary from './config/index.js';
 
 const app = express();
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 dotenv.config();
-connectCloudinary();
 
 app.use('/api/auth', authRoute)
 app.use('/api/foods', foodRoute)
 app.use('/api/blogs', blogRoute)
   
 mongoose.connect(process.env.DB_URI, {dbName: 'db_food'})
-    .then(() => {
+    .then((res) => {
         app.listen(process.env.PORT, () => {
             console.log(`Server is running on port ${process.env.PORT}`)
         })

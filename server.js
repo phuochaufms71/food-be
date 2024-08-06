@@ -17,16 +17,8 @@ app.use('/api/auth', authRoute)
 app.use('/api/foods', foodRoute)
 app.use('/api/blogs', blogRoute)
 
-app.use(cors({
-    origin: 'https://food-fe-xod3.onrender.com',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-  }));
+app.use(cors());
   
-
-// app.use('/api/foods/admin-food/create', (req, res) => {
-//     // Your route handler code
-// });
 mongoose.connect(process.env.DB_URI, {dbName: 'db_food'})
     .then(() => {
         app.listen(process.env.PORT, () => {

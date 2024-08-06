@@ -9,19 +9,7 @@ import connectCloudinary from './config/index.js';
 
 const app = express();
 app.use(express.json());
-
-const corsOptions ={
-    origin:'https://food-be-1.onrender.com/', 
-    credentials:true,            //access-control-allow-credentials:true
-    optionSuccessStatus:200
-}
-
-app.use(cors(corsOptions));
-app.use(function (request, response, next) {
-    response.header("Access-Control-Allow-Origin", "*");
-    response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+app.use(cors());
 dotenv.config();
 connectCloudinary()
 
@@ -29,6 +17,12 @@ app.use('/api/auth', authRoute)
 app.use('/api/foods', foodRoute)
 app.use('/api/blogs', blogRoute)
 
+app.use(function (req, res) {
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Max-Age", "1800");
+    res.setHeader("Access-Control-Allow-Headers", "content-type");
+});
 mongoose.connect(process.env.DB_URI, {dbName: 'db_food'})
     .then(() => {
         app.listen(process.env.PORT, () => {

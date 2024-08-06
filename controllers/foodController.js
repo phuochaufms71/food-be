@@ -43,7 +43,6 @@ export const createFood = async (req, res) => {
         return
     }
     const newFood = await Food.create({ category, name, image: imageUpload.secure_url, description, price, rate });
-    console.log(image)
     handleResponseSuccess(res, 201, "Create new food successfully", {...newFood._doc})
 }
 

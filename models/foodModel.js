@@ -22,7 +22,7 @@ const foodSchema = mongoose.Schema({
         require: true
     },
     rate: {
-        type: Number,
+        type: String,
         require: true
     },
 });

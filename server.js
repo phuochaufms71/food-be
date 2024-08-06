@@ -5,13 +5,13 @@ import mongoose from 'mongoose';
 import { authRoute } from './routes/authRoute.js';
 import { foodRoute } from './routes/foodRoute.js';
 import { blogRoute } from './routes/blogRoute.js';
-import connectCloudinary from './config/index.js';
+// import connectCloudinary from './config/index.js';
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 dotenv.config();
-connectCloudinary()
+// connectCloudinary()
 
 app.use('/api/auth', authRoute)
 app.use('/api/foods', foodRoute)

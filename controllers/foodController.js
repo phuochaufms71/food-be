@@ -35,14 +35,14 @@ export const getFoodDetail = async( req, res) => {
 }
 
 export const createFood = async (req, res) => {
-    const imageFile = req.file;
-    const imageUpload = await cloudinary.uploader.upload(imageFile.path, {resource_type: 'image'})
-    const { category, name, description, price, rate } = req.body;
-    if (!category || !name || !description || !price || !rate) {
+    // const imageFile = req.file;
+    // const imageUpload = await cloudinary.uploader.upload(imageFile.path, {resource_type: 'image'})
+    const { category, name, image, description, price, rate } = req.body;
+    if (!category || !name || !image || !description || !price || !rate) {
         handleResponseError(res, 400, "All fields are required")
         return
     }
-    const newFood = await Food.create({ category, name, image: imageUpload.secure_url, description, price, rate });
+    const newFood = await Food.create({ category, name, image, description, price, rate });
     handleResponseSuccess(res, 201, "Create new food successfully", {...newFood._doc})
 }
 

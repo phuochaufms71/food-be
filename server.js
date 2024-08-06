@@ -18,6 +18,19 @@ app.use('/api/foods', foodRoute)
 app.use('/api/blogs', blogRoute)
 
 app.use(cors());
+app.use((req, res, next) => {
+    res.header(
+        "Access-Control-Allow-Origin",
+        "clientURL"
+    );
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.header("Access-Control-Allow-Credentials", true);
+    
+    console.log("Request received:", req.method, req.url);
+    
+    next();
+});
   
 mongoose.connect(process.env.DB_URI, {dbName: 'db_food'})
     .then(() => {

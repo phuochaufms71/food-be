@@ -5,9 +5,9 @@ import { createBlog, deleteBlog, getBlogDetail, getBlogs, updateBlog } from '../
 
 const router = express.Router();
 
-router.get('/', auth, getBlogs);
+router.get('/admin-blog/lists', auth, getBlogs);
 router.get('/:id', auth, getBlogDetail);
-router.post('/', auth, authAdmin, createBlog);
+router.post('/admin-blog/create', auth, authAdmin, createBlog);
 router.put('/:id', auth, authAdmin, updateBlog);
 router.delete('/:id', auth, authAdmin, deleteBlog);
 

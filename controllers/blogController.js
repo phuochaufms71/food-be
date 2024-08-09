@@ -33,12 +33,12 @@ export const getBlogDetail = async( req, res) => {
 }
 
 export const createBlog = async (req, res) => {
-    const { image, title, description, date, content } = req.body;
-    if (!image || !title || !description || !date || !content) {
+    const { image, title, description, content } = req.body;
+    if (!image || !title || !description || !content) {
         handleResponseError(res, 400, "All fields are required")
         return
     }
-    const newBlog = await Blog.create({ image, title, description, date, content });
+    const newBlog = await Blog.create({ image, title, description, content });
     handleResponseSuccess(res, 201, "Create new blog successfully", {...newBlog._doc})
 }
 

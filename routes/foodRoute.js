@@ -5,10 +5,10 @@ import { createFood, deleteFood, getFoodDetail, getFoods, updateFood } from '../
 
 const router = express.Router();
 
-router.get('/', auth, getFoods);
+router.get('/admin-food/lists', auth, getFoods);
 router.get('/:id', auth, getFoodDetail);
 router.post('/admin-food/create', auth, authAdmin, createFood);
 router.put('/:id', auth, authAdmin, updateFood);
-router.delete('/:id', auth, authAdmin, deleteFood);
+router.delete('/admin-food/lists/:id', auth, authAdmin, deleteFood);
 
 export {router as foodRoute};

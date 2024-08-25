@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/userModel.js';
 import { handleResponseError, handleResponseSuccess } from '../utils/responses.js';
+import cloudinary from '../utils/cloudinary.js';
 
 dotenv.config();
 const saltRound = 10;
@@ -128,7 +129,7 @@ export const editUser = async (req, res) => {
         handleResponseError(res, 400, "Bad request. All fields are required")
         return
     }
-    
+
     const checkEmailUser = await User.findOne({email});
     if (!checkEmailUser) {
         handleResponseError(res, 400, "Email is incorrect")

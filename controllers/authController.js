@@ -136,7 +136,6 @@ export const editUser = async (req, res) => {
         return
     }
 
-
     if (avatar) {
         const uploadRes = await cloudinary.uploader.upload(avatar, {
             upload_preset: "foodWeb"
@@ -147,5 +146,17 @@ export const editUser = async (req, res) => {
         
             handleResponseSuccess(res, 200, "Update account successfully", {...editUser._doc})
         }
+    }
+}
+
+export const getUser = async (req, res) => {
+    try {
+        const { email } = req.body;
+        const user = await User.findOne({email});
+        handleResponseSuccess(res, 200, "Get user successfully", { user })
+    }
+    catch (error) {
+        handleResponseError(res, 400, "Email is incorrect")
+        return
     }
 }

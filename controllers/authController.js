@@ -143,8 +143,7 @@ export const editUser = async (req, res) => {
         if (uploadRes) {
             await checkFoodByIdInDb.updateOne({ email, firstName, avatar: uploadRes.secure_url, lastName, phone })
         
-            const editUser = await User.findOne({email});
-            handleResponseSuccess(res, 200, "Update food successfully", {...editUser._doc})
+            handleResponseSuccess(res, 200, "Update account successfully", {...editUser._doc})
         }
     }
 }

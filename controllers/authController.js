@@ -123,17 +123,18 @@ export const logout = (req, res) => {
 }
 
 export const editUser = async (req, res) => {
+    const { email, avatar, firstName, lastName, phone } = req.body;
+    if (!email || !firstName || !lastName || !phone) {
+        handleResponseError(res, 400, "Bad request. All fields are required")
+        return
+    }
+    
     const checkEmailUser = await User.findOne({email});
     if (!checkEmailUser) {
         handleResponseError(res, 400, "Email is incorrect")
         return
     }
 
-    const { email, avatar, firstName, lastName, phone } = req.body;
-    if (!email || !firstName || !lastName || !phone) {
-        handleResponseError(res, 400, "Bad request. All fields are required")
-        return
-    }
 
     if (avatar) {
         const uploadRes = await cloudinary.uploader.upload(avatar, {

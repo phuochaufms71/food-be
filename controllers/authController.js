@@ -124,15 +124,44 @@ export const logout = (req, res) => {
 }
 
 export const editUser = async (req, res) => {
-    const { email, avatar, firstName, lastName, phone } = req.body;
-    if (!email || !firstName || !lastName || !phone) {
-        handleResponseError(res, 400, "Bad request. All fields are required")
+    // const { email, avatar, firstName, lastName, phone } = req.body;
+    // if (!email || !firstName || !lastName || !phone) {
+    //     handleResponseError(res, 400, "Bad request. All fields are required")
+    //     return
+    // }
+
+    // const checkEmailUser = await User.findOne({email});
+    // if (!checkEmailUser) {
+    //     handleResponseError(res, 400, "Email is incorrect")
+    //     return
+    // }
+
+    // if (avatar) {
+    //     const uploadRes = await cloudinary.uploader.upload(avatar, {
+    //         upload_preset: "foodWeb"
+    //     })
+
+    //     if (uploadRes) {
+    //         await checkEmailUser.updateOne({ email, firstName, avatar: uploadRes.secure_url, lastName, phone })
+
+    //         const editUser = await User.findOne({email})
+    //         handleResponseSuccess(res, 200, "Update account successfully", {...editUser._doc})
+    //     }
+    // }
+
+    const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        handleResponseError(res, 400, "Incorrect format id")
+        return 
+    }
+    const checkUserByIdInDb = await User.findById(id);
+    if (!checkUserByIdInDb) {
+        handleResponseError(res, 404, "User not found")
         return
     }
-
-    const checkEmailUser = await User.findOne({email});
-    if (!checkEmailUser) {
-        handleResponseError(res, 400, "Email is incorrect")
+    const { firstName, lastName, avatar, phone, email } = req.body;
+    if (!firstName || !lastName || !phone || !email) {
+        handleResponseError(res, 400, "Bad request. All fields are required")
         return
     }
 
@@ -142,10 +171,10 @@ export const editUser = async (req, res) => {
         })
 
         if (uploadRes) {
-            await checkEmailUser.updateOne({ email, firstName, avatar: uploadRes.secure_url, lastName, phone })
-
-            const editUser = await User.findOne({email})
-            handleResponseSuccess(res, 200, "Update account successfully", {...editUser._doc})
+            await checkUserByIdInDb.updateOne({ firstName, lastName, avatar: uploadRes, phone, email })
+        
+            const updateUser = await User.findById(id);
+            handleResponseSuccess(res, 200, "Update food successfully", {...updateUser._doc})
         }
     }
 }

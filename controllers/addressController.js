@@ -5,7 +5,7 @@ import { handleResponseError, handleResponseSuccess } from "../utils/responses.j
 export const getAddresses = async (req, res) => {
     try {
         const addresses = await Address.find();
-        handleResponseSuccess(res, 200, "Get addresses successfuly", { addresses })
+        handleResponseSuccess(res, 200, "Get addresses successfuly",  addresses )
     } catch (error) {
         handleResponseError(res, 500, "Internal server error")
         return

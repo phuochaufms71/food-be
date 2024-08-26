@@ -9,6 +9,5 @@ router.post('/change-password', changePassword);
 router.post('/reset-password', resetPassword);
 router.post('/logout', logout);
 router.put('/edit', editUser);
-router.get('/user/:id', getUser);
 
 export {router as authRoute};
